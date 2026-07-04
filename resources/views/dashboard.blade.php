@@ -20,6 +20,17 @@ Role : {{ Auth::user()->role }}
     <br><br>
 @endif
 
+@if(Auth::user()->role == 'admin')
+
+<a href="/kategori">Data Kategori</a>
+
+<br><br>
+
+<a href="/buku">Data Buku</a>
+
+<br><br>
+
+@endif
 <a href="/logout">Logout</a>
 
 </body>
