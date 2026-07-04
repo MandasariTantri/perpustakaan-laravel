@@ -1,6 +1,8 @@
 <h2>Tambah Buku</h2>
 
-<form method="POST" action="/buku/simpan">
+<form method="POST"
+      action="/buku/simpan"
+      enctype="multipart/form-data">
 @csrf
 
 Kategori <br>
@@ -33,6 +35,11 @@ Tahun <br>
 
 Stok <br>
 <input type="number" name="stok">
+
+<br><br>
+
+Cover Buku <br>
+<input type="file" name="cover">
 
 <br><br>
 

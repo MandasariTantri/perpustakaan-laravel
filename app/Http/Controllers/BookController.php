@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Category;
@@ -23,17 +23,26 @@ class BookController extends Controller
     }
 
     public function simpan(Request $request)
-    {
-        Book::create([
-            'category_id' => $request->category_id,
-            'judul' => $request->judul,
-            'penulis' => $request->penulis,
-            'tahun' => $request->tahun,
-            'stok' => $request->stok,
-        ]);
+{
+    $cover = null;
 
-        return redirect('/buku');
+    if($request->hasFile('cover'))
+    {
+        $cover = $request->file('cover')
+                        ->store('covers','public');
     }
+
+    Book::create([
+        'category_id' => $request->category_id,
+        'judul' => $request->judul,
+        'penulis' => $request->penulis,
+        'tahun' => $request->tahun,
+        'stok' => $request->stok,
+        'cover' => $cover,
+    ]);
+
+    return redirect('/buku');
+}
 
     public function edit($id)
     {
@@ -43,19 +52,34 @@ class BookController extends Controller
         return view('buku.edit', compact('data','kategori'));
     }
 
-    public function ubah(Request $request, $id)
-    {
-        Book::findOrFail($id)->update([
-            'category_id' => $request->category_id,
-            'judul' => $request->judul,
-            'penulis' => $request->penulis,
-            'tahun' => $request->tahun,
-            'stok' => $request->stok,
-        ]);
+   public function ubah(Request $request, $id)
+{
+    $book = Book::findOrFail($id);
 
-        return redirect('/buku');
+    $cover = $book->cover;
+
+    if($request->hasFile('cover'))
+    {
+        if($book->cover)
+        {
+            Storage::disk('public')->delete($book->cover);
+        }
+
+        $cover = $request->file('cover')
+                        ->store('covers','public');
     }
 
+    $book->update([
+        'category_id' => $request->category_id,
+        'judul' => $request->judul,
+        'penulis' => $request->penulis,
+        'tahun' => $request->tahun,
+        'stok' => $request->stok,
+        'cover' => $cover,
+    ]);
+
+    return redirect('/buku');
+}
     public function hapus($id)
     {
         Book::findOrFail($id)->delete();

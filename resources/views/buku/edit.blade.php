@@ -1,6 +1,8 @@
 <h2>Edit Buku</h2>
 
-<form method="POST" action="/buku/ubah/{{ $data->id }}">
+<form method="POST"
+      action="/buku/ubah/{{ $data->id }}"
+      enctype="multipart/form-data">
 @csrf
 
 Kategori <br>
@@ -47,8 +49,21 @@ name="stok"
 value="{{ $data->stok }}">
 
 <br><br>
+Cover Buku <br>
 
+@if($data->cover)
+<img src="{{ asset('storage/'.$data->cover) }}"
+     width="100">
+
+<br><br>
+
+@endif
+
+<input type="file" name="cover">
+
+<br><br>
 <button type="submit">
+    
 Update
 </button>
 

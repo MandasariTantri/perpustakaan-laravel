@@ -7,6 +7,7 @@
 <table border="1" cellpadding="10">
 <tr>
     <th>ID</th>
+    <th>Cover</th>
     <th>Kategori</th>
     <th>Judul</th>
     <th>Penulis</th>
@@ -18,6 +19,14 @@
 @foreach($data as $d)
 <tr>
     <td>{{ $d->id }}</td>
+    <td>
+
+@if($d->cover)
+<img src="{{ asset('storage/'.$d->cover) }}"
+     width="80">
+@endif
+
+</td>
     <td>{{ $d->category->nama_kategori }}</td>
     <td>{{ $d->judul }}</td>
     <td>{{ $d->penulis }}</td>
