@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/login',[AuthController::class,'loginForm'])
     ->name('login');
@@ -18,3 +19,18 @@ Route::get('/', function()
 {
     return view('dashboard');
 })->middleware('auth');
+Route::middleware(['auth','role:admin'])->group(function(){
+
+    Route::get('/kategori',[CategoryController::class,'tampil']);
+
+    Route::get('/kategori/tambah',[CategoryController::class,'tambah']);
+
+    Route::post('/kategori/simpan',[CategoryController::class,'simpan']);
+
+    Route::get('/kategori/edit/{id}',[CategoryController::class,'edit']);
+
+    Route::post('/kategori/ubah/{id}',[CategoryController::class,'ubah']);
+
+    Route::get('/kategori/hapus/{id}',[CategoryController::class,'hapus']);
+
+});
