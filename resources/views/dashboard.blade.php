@@ -1,74 +1,133 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
+    <title>Dashboard Perpustakaan</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body class="bg-light">
 
-<h1>Dashboard</h1>
+<div class="container mt-4">
 
-Selamat datang {{ Auth::user()->name }}
+    <div class="card shadow">
 
-<br><br>
+        <div class="card-header bg-primary text-white">
+            <h3>Dashboard Perpustakaan</h3>
+        </div>
 
-Role : {{ Auth::user()->role }}
+        <div class="card-body">
 
-<br><br>
+            <div class="alert alert-success">
 
+                Selamat datang
+                <strong>{{ Auth::user()->name }}</strong>
 
-@if(Auth::user()->role == 'admin')
+                <br>
 
-<a href="/kategori">Data Kategori</a>
+                Role :
+                <strong>{{ Auth::user()->role }}</strong>
 
-<br><br>
+            </div>
 
-<a href="/buku">Data Buku</a>
+            <div class="mb-3">
 
-<br><br>
+                @if(Auth::user()->role == 'admin')
 
-@endif
-<a href="/peminjaman">
-    Data Peminjaman
-</a>
+                <a href="/kategori"
+                   class="btn btn-primary">
+                    Data Kategori
+                </a>
 
-<br><br>
-<a href="/laporan-peminjaman">
-    Cetak Laporan PDF
-</a>
+                <a href="/buku"
+                   class="btn btn-success">
+                    Data Buku
+                </a>
 
-<br><br>
+                @endif
 
-<hr>
+                <a href="/peminjaman"
+                   class="btn btn-warning">
+                    Data Peminjaman
+                </a>
 
-<h2>Grafik Jumlah Buku per Kategori</h2>
+                <a href="/laporan-peminjaman"
+                   class="btn btn-info">
+                    Cetak PDF
+                </a>
 
-<canvas id="grafikBuku"></canvas>
-<a href="/logout">Logout</a>
+                <a href="/logout"
+                   class="btn btn-danger">
+                    Logout
+                </a>
+
+            </div>
+
+            <hr>
+
+            <h4>
+                Grafik Jumlah Buku per Kategori
+            </h4>
+
+            <div class="card">
+
+                <div class="card-body">
+
+                    <canvas id="grafikBuku"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <script>
 
 const ctx = document.getElementById('grafikBuku');
 
 new Chart(ctx, {
+
     type: 'bar',
+
     data: {
+
         labels: [
+
             @foreach($kategori as $k)
+
                 '{{ $k->nama_kategori }}',
+
             @endforeach
+
         ],
+
         datasets: [{
+
             label: 'Jumlah Buku',
+
             data: [
+
                 @foreach($kategori as $k)
+
                     {{ $k->books_count }},
+
                 @endforeach
-            ]
+
+            ],
+
+            borderWidth: 1
+
         }]
     }
 });
 
 </script>
+
 </body>
 </html>

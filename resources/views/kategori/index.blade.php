@@ -1,26 +1,87 @@
-<h2>Data Kategori</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Kategori</title>
 
-<a href="/kategori/tambah">Tambah Kategori</a>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
 
-<br><br>
+<div class="container mt-4">
 
-<table border="1" cellpadding="10">
-    <tr>
-        <th>ID</th>
-        <th>Nama Kategori</th>
-        <th>Aksi</th>
-    </tr>
+    <div class="card shadow">
 
-    @foreach($data as $d)
-    <tr>
-        <td>{{ $d->id }}</td>
-        <td>{{ $d->nama_kategori }}</td>
-        <td>
-            <a href="/kategori/edit/{{ $d->id }}">Edit</a>
-            |
-            <a href="/kategori/hapus/{{ $d->id }}">Hapus</a>
-        </td>
-    </tr>
-    @endforeach
+        <div class="card-header bg-primary text-white">
 
-</table>
+            <h3>Data Kategori</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <a href="/"
+               class="btn btn-secondary">
+                Dashboard
+            </a>
+
+            <a href="/kategori/tambah"
+               class="btn btn-success">
+                Tambah Kategori
+            </a>
+
+            <br><br>
+
+            <table class="table table-bordered table-striped">
+
+                <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Kategori</th>
+                    <th width="200">Aksi</th>
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                @foreach($data as $d)
+
+                <tr>
+
+                    <td>{{ $d->id }}</td>
+
+                    <td>{{ $d->nama_kategori }}</td>
+
+                    <td>
+
+                        <a href="/kategori/edit/{{ $d->id }}"
+                           class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
+
+                        <a href="/kategori/hapus/{{ $d->id }}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Yakin hapus data?')">
+                            Hapus
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                @endforeach
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

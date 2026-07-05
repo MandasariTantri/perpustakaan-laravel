@@ -1,50 +1,129 @@
-<h2>Tambah Buku</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tambah Buku</title>
 
-<form method="POST"
-      action="/buku/simpan"
-      enctype="multipart/form-data">
-@csrf
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
 
-Kategori <br>
-<select name="category_id">
+<div class="container mt-4">
 
-@foreach($kategori as $k)
-<option value="{{ $k->id }}">
-    {{ $k->nama_kategori }}
-</option>
-@endforeach
+    <div class="card shadow">
 
-</select>
+        <div class="card-header bg-success text-white">
 
-<br><br>
+            <h3>Tambah Buku</h3>
 
-Judul <br>
-<input type="text" name="judul">
+        </div>
 
-<br><br>
+        <div class="card-body">
 
-Penulis <br>
-<input type="text" name="penulis">
+            <form method="POST"
+                  action="/buku/simpan"
+                  enctype="multipart/form-data">
 
-<br><br>
+                @csrf
 
-Tahun <br>
-<input type="number" name="tahun">
+                <div class="mb-3">
 
-<br><br>
+                    <label class="form-label">
+                        Kategori
+                    </label>
 
-Stok <br>
-<input type="number" name="stok">
+                    <select name="category_id"
+                            class="form-select">
 
-<br><br>
+                        @foreach($kategori as $k)
 
-Cover Buku <br>
-<input type="file" name="cover">
+                        <option value="{{ $k->id }}">
+                            {{ $k->nama_kategori }}
+                        </option>
 
-<br><br>
+                        @endforeach
 
-<button type="submit">
-    Simpan
-</button>
+                    </select>
 
-</form>
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Judul Buku
+                    </label>
+
+                    <input type="text"
+                           name="judul"
+                           class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Penulis
+                    </label>
+
+                    <input type="text"
+                           name="penulis"
+                           class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Tahun
+                    </label>
+
+                    <input type="number"
+                           name="tahun"
+                           class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Stok
+                    </label>
+
+                    <input type="number"
+                           name="stok"
+                           class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Cover Buku
+                    </label>
+
+                    <input type="file"
+                           name="cover"
+                           class="form-control">
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success">
+                    Simpan
+                </button>
+
+                <a href="/buku"
+                   class="btn btn-secondary">
+                    Kembali
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

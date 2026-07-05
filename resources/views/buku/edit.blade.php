@@ -1,70 +1,148 @@
-<h2>Edit Buku</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Buku</title>
 
-<form method="POST"
-      action="/buku/ubah/{{ $data->id }}"
-      enctype="multipart/form-data">
-@csrf
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
 
-Kategori <br>
+<div class="container mt-4">
 
-<select name="category_id">
+    <div class="card shadow">
 
-@foreach($kategori as $k)
+        <div class="card-header bg-warning">
 
-<option value="{{ $k->id }}"
-{{ $data->category_id == $k->id ? 'selected' : '' }}>
-{{ $k->nama_kategori }}
-</option>
+            <h3>Edit Buku</h3>
 
-@endforeach
+        </div>
 
-</select>
+        <div class="card-body">
 
-<br><br>
+            <form method="POST"
+                  action="/buku/ubah/{{ $data->id }}"
+                  enctype="multipart/form-data">
 
-Judul <br>
-<input type="text"
-name="judul"
-value="{{ $data->judul }}">
+                @csrf
 
-<br><br>
+                <div class="mb-3">
 
-Penulis <br>
-<input type="text"
-name="penulis"
-value="{{ $data->penulis }}">
+                    <label class="form-label">
+                        Kategori
+                    </label>
 
-<br><br>
+                    <select name="category_id"
+                            class="form-select">
 
-Tahun <br>
-<input type="number"
-name="tahun"
-value="{{ $data->tahun }}">
+                        @foreach($kategori as $k)
 
-<br><br>
+                        <option value="{{ $k->id }}"
+                        {{ $data->category_id == $k->id ? 'selected' : '' }}>
 
-Stok <br>
-<input type="number"
-name="stok"
-value="{{ $data->stok }}">
+                            {{ $k->nama_kategori }}
 
-<br><br>
-Cover Buku <br>
+                        </option>
 
-@if($data->cover)
-<img src="{{ asset('storage/'.$data->cover) }}"
-     width="100">
+                        @endforeach
 
-<br><br>
+                    </select>
 
-@endif
+                </div>
 
-<input type="file" name="cover">
+                <div class="mb-3">
 
-<br><br>
-<button type="submit">
-    
-Update
-</button>
+                    <label class="form-label">
+                        Judul Buku
+                    </label>
 
-</form>
+                    <input type="text"
+                           name="judul"
+                           value="{{ $data->judul }}"
+                           class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Penulis
+                    </label>
+
+                    <input type="text"
+                           name="penulis"
+                           value="{{ $data->penulis }}"
+                           class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Tahun
+                    </label>
+
+                    <input type="number"
+                           name="tahun"
+                           value="{{ $data->tahun }}"
+                           class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Stok
+                    </label>
+
+                    <input type="number"
+                           name="stok"
+                           value="{{ $data->stok }}"
+                           class="form-control">
+
+                </div>
+
+                @if($data->cover)
+
+                <div class="mb-3">
+
+                    <img src="{{ asset('storage/'.$data->cover) }}"
+                         width="120"
+                         class="img-thumbnail">
+
+                </div>
+
+                @endif
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Ganti Cover
+                    </label>
+
+                    <input type="file"
+                           name="cover"
+                           class="form-control">
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-warning">
+                    Update
+                </button>
+
+                <a href="/buku"
+                   class="btn btn-secondary">
+                    Kembali
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

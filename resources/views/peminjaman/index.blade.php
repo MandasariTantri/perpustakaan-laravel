@@ -1,53 +1,120 @@
-<h2>Data Peminjaman</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Peminjaman</title>
 
-<a href="/peminjaman/tambah">
-    Tambah Peminjaman
-</a>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
 
-<br><br>
+<div class="container mt-4">
 
-<table border="1" cellpadding="10">
+    <div class="card shadow">
 
-<tr>
-    <th>ID</th>
-    <th>Judul Buku</th>
-    <th>Nama Peminjam</th>
-    <th>Tanggal Pinjam</th>
-    <th>Tanggal Kembali</th>
-    <th>Status</th>
-    <th>Aksi</th>
-</tr>
+        <div class="card-header bg-warning">
 
-@foreach($data as $d)
+            <h3>Data Peminjaman Buku</h3>
 
-<tr>
+        </div>
 
-    <td>{{ $d->id }}</td>
+        <div class="card-body">
 
-    <td>{{ $d->book->judul }}</td>
+            <a href="/"
+               class="btn btn-secondary">
+                Dashboard
+            </a>
 
-    <td>{{ $d->nama_peminjam }}</td>
+            <a href="/peminjaman/tambah"
+               class="btn btn-success">
+                Tambah Peminjaman
+            </a>
 
-    <td>{{ $d->tanggal_pinjam }}</td>
+            <a href="/laporan-peminjaman"
+               class="btn btn-info">
+                Cetak PDF
+            </a>
 
-    <td>{{ $d->tanggal_kembali }}</td>
+            <br><br>
 
-    <td>{{ $d->status }}</td>
+            <table class="table table-bordered table-striped">
 
-    <td>
-        <a href="/peminjaman/edit/{{ $d->id }}">
-            Edit
-        </a>
+                <thead>
 
-        |
+                <tr>
+                    <th>ID</th>
+                    <th>Judul Buku</th>
+                    <th>Nama Peminjam</th>
+                    <th>Tanggal Pinjam</th>
+                    <th>Tanggal Kembali</th>
+                    <th>Status</th>
+                    <th width="180">Aksi</th>
+                </tr>
 
-        <a href="/peminjaman/hapus/{{ $d->id }}">
-            Hapus
-        </a>
-    </td>
+                </thead>
 
-</tr>
+                <tbody>
 
-@endforeach
+                @foreach($data as $d)
 
-</table>
+                <tr>
+
+                    <td>{{ $d->id }}</td>
+
+                    <td>{{ $d->book->judul }}</td>
+
+                    <td>{{ $d->nama_peminjam }}</td>
+
+                    <td>{{ $d->tanggal_pinjam }}</td>
+
+                    <td>{{ $d->tanggal_kembali }}</td>
+
+                    <td>
+
+                        @if($d->status == 'Dipinjam')
+
+                            <span class="badge bg-warning">
+                                Dipinjam
+                            </span>
+
+                        @else
+
+                            <span class="badge bg-success">
+                                Dikembalikan
+                            </span>
+
+                        @endif
+
+                    </td>
+
+                    <td>
+
+                        <a href="/peminjaman/edit/{{ $d->id }}"
+                           class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
+
+                        <a href="/peminjaman/hapus/{{ $d->id }}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Yakin hapus data?')">
+                            Hapus
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                @endforeach
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

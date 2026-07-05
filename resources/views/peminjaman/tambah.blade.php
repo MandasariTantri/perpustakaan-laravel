@@ -1,60 +1,125 @@
-<h2>Tambah Peminjaman</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tambah Peminjaman</title>
 
-<form method="POST"
-      action="/peminjaman/simpan">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
 
-@csrf
+<div class="container mt-4">
 
-Buku <br>
+    <div class="card shadow">
 
-<select name="book_id">
+        <div class="card-header bg-success text-white">
 
-@foreach($buku as $b)
+            <h3>Tambah Peminjaman</h3>
 
-<option value="{{ $b->id }}">
-    {{ $b->judul }}
-</option>
+        </div>
 
-@endforeach
+        <div class="card-body">
 
-</select>
+            <form method="POST"
+                  action="/peminjaman/simpan">
 
-<br><br>
+                @csrf
 
-Nama Peminjam <br>
-<input type="text"
-       name="nama_peminjam">
+                <div class="mb-3">
 
-<br><br>
+                    <label class="form-label">
+                        Buku
+                    </label>
 
-Tanggal Pinjam <br>
-<input type="date"
-       name="tanggal_pinjam">
+                    <select name="book_id"
+                            class="form-select">
 
-<br><br>
+                        @foreach($buku as $b)
 
-Tanggal Kembali <br>
-<input type="date"
-       name="tanggal_kembali">
+                        <option value="{{ $b->id }}">
+                            {{ $b->judul }}
+                        </option>
 
-<br><br>
+                        @endforeach
 
-Status <br>
+                    </select>
 
-<select name="status">
-    <option value="Dipinjam">
-        Dipinjam
-    </option>
+                </div>
 
-    <option value="Dikembalikan">
-        Dikembalikan
-    </option>
-</select>
+                <div class="mb-3">
 
-<br><br>
+                    <label class="form-label">
+                        Nama Peminjam
+                    </label>
 
-<button type="submit">
-    Simpan
-</button>
+                    <input type="text"
+                           name="nama_peminjam"
+                           class="form-control">
 
-</form>
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Tanggal Pinjam
+                    </label>
+
+                    <input type="date"
+                           name="tanggal_pinjam"
+                           class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Tanggal Kembali
+                    </label>
+
+                    <input type="date"
+                           name="tanggal_kembali"
+                           class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Status
+                    </label>
+
+                    <select name="status"
+                            class="form-select">
+
+                        <option value="Dipinjam">
+                            Dipinjam
+                        </option>
+
+                        <option value="Dikembalikan">
+                            Dikembalikan
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success">
+                    Simpan
+                </button>
+
+                <a href="/peminjaman"
+                   class="btn btn-secondary">
+                    Kembali
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,73 +1,133 @@
-<h2>Edit Peminjaman</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Peminjaman</title>
 
-<form method="POST"
-      action="/peminjaman/ubah/{{ $data->id }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
 
-@csrf
+<div class="container mt-4">
 
-Buku <br>
+    <div class="card shadow">
 
-<select name="book_id">
+        <div class="card-header bg-warning">
 
-@foreach($buku as $b)
+            <h3>Edit Peminjaman</h3>
 
-<option value="{{ $b->id }}"
-    {{ $data->book_id == $b->id ? 'selected' : '' }}>
+        </div>
 
-    {{ $b->judul }}
+        <div class="card-body">
 
-</option>
+            <form method="POST"
+                  action="/peminjaman/ubah/{{ $data->id }}">
 
-@endforeach
+                @csrf
 
-</select>
+                <div class="mb-3">
 
-<br><br>
+                    <label class="form-label">
+                        Buku
+                    </label>
 
-Nama Peminjam <br>
+                    <select name="book_id"
+                            class="form-select">
 
-<input type="text"
-       name="nama_peminjam"
-       value="{{ $data->nama_peminjam }}">
+                        @foreach($buku as $b)
 
-<br><br>
+                        <option value="{{ $b->id }}"
+                        {{ $data->book_id == $b->id ? 'selected' : '' }}>
 
-Tanggal Pinjam <br>
+                            {{ $b->judul }}
 
-<input type="date"
-       name="tanggal_pinjam"
-       value="{{ $data->tanggal_pinjam }}">
+                        </option>
 
-<br><br>
+                        @endforeach
 
-Tanggal Kembali <br>
+                    </select>
 
-<input type="date"
-       name="tanggal_kembali"
-       value="{{ $data->tanggal_kembali }}">
+                </div>
 
-<br><br>
+                <div class="mb-3">
 
-Status <br>
+                    <label class="form-label">
+                        Nama Peminjam
+                    </label>
 
-<select name="status">
+                    <input type="text"
+                           name="nama_peminjam"
+                           value="{{ $data->nama_peminjam }}"
+                           class="form-control">
 
-<option value="Dipinjam"
-{{ $data->status == 'Dipinjam' ? 'selected' : '' }}>
-Dipinjam
-</option>
+                </div>
 
-<option value="Dikembalikan"
-{{ $data->status == 'Dikembalikan' ? 'selected' : '' }}>
-Dikembalikan
-</option>
+                <div class="mb-3">
 
-</select>
+                    <label class="form-label">
+                        Tanggal Pinjam
+                    </label>
 
-<br><br>
+                    <input type="date"
+                           name="tanggal_pinjam"
+                           value="{{ $data->tanggal_pinjam }}"
+                           class="form-control">
 
-<button type="submit">
-    Update
-</button>
+                </div>
 
-</form>
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Tanggal Kembali
+                    </label>
+
+                    <input type="date"
+                           name="tanggal_kembali"
+                           value="{{ $data->tanggal_kembali }}"
+                           class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Status
+                    </label>
+
+                    <select name="status"
+                            class="form-select">
+
+                        <option value="Dipinjam"
+                        {{ $data->status == 'Dipinjam' ? 'selected' : '' }}>
+                            Dipinjam
+                        </option>
+
+                        <option value="Dikembalikan"
+                        {{ $data->status == 'Dikembalikan' ? 'selected' : '' }}>
+                            Dikembalikan
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-warning">
+                    Update
+                </button>
+
+                <a href="/peminjaman"
+                   class="btn btn-secondary">
+                    Kembali
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

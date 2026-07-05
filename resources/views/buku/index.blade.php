@@ -1,43 +1,116 @@
-<h2>Data Buku</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Buku</title>
 
-<a href="/buku/tambah">Tambah Buku</a>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
 
-<br><br>
+<div class="container mt-4">
 
-<table border="1" cellpadding="10">
-<tr>
-    <th>ID</th>
-    <th>Cover</th>
-    <th>Kategori</th>
-    <th>Judul</th>
-    <th>Penulis</th>
-    <th>Tahun</th>
-    <th>Stok</th>
-    <th>Aksi</th>
-</tr>
+    <div class="card shadow">
 
-@foreach($data as $d)
-<tr>
-    <td>{{ $d->id }}</td>
-    <td>
+        <div class="card-header bg-success text-white">
 
-@if($d->cover)
-<img src="{{ asset('storage/'.$d->cover) }}"
-     width="80">
-@endif
+            <h3>Data Buku</h3>
 
-</td>
-    <td>{{ $d->category->nama_kategori }}</td>
-    <td>{{ $d->judul }}</td>
-    <td>{{ $d->penulis }}</td>
-    <td>{{ $d->tahun }}</td>
-    <td>{{ $d->stok }}</td>
-    <td>
-        <a href="/buku/edit/{{ $d->id }}">Edit</a>
-        |
-        <a href="/buku/hapus/{{ $d->id }}">Hapus</a>
-    </td>
-</tr>
-@endforeach
+        </div>
 
-</table>
+        <div class="card-body">
+
+            <a href="/"
+               class="btn btn-secondary">
+                Dashboard
+            </a>
+
+            <a href="/buku/tambah"
+               class="btn btn-success">
+                Tambah Buku
+            </a>
+
+            <br><br>
+
+            <table class="table table-bordered table-striped align-middle">
+
+                <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Cover</th>
+                    <th>Kategori</th>
+                    <th>Judul</th>
+                    <th>Penulis</th>
+                    <th>Tahun</th>
+                    <th>Stok</th>
+                    <th width="180">Aksi</th>
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                @foreach($data as $d)
+
+                <tr>
+
+                    <td>{{ $d->id }}</td>
+
+                    <td>
+
+                        @if($d->cover)
+
+                        <img src="{{ asset('storage/'.$d->cover) }}"
+                             width="80"
+                             class="img-thumbnail">
+
+                        @else
+
+                        Tidak Ada Cover
+
+                        @endif
+
+                    </td>
+
+                    <td>{{ $d->category->nama_kategori }}</td>
+
+                    <td>{{ $d->judul }}</td>
+
+                    <td>{{ $d->penulis }}</td>
+
+                    <td>{{ $d->tahun }}</td>
+
+                    <td>{{ $d->stok }}</td>
+
+                    <td>
+
+                        <a href="/buku/edit/{{ $d->id }}"
+                           class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
+
+                        <a href="/buku/hapus/{{ $d->id }}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Yakin hapus buku?')">
+                            Hapus
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                @endforeach
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
